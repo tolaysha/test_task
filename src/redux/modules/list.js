@@ -50,7 +50,7 @@ export default (state = initialState, action = { type: null, payload: null }) =>
     case actionTypes.SET_TEST: {
       return {
         ...state,
-        test: payload,
+        test: payload,rfr
       };
     }
     case actionTypes.ADD_TASK: {
