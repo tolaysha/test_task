@@ -1,7 +1,9 @@
 // Initial State
+
 const initialState = require('../../assets/files/list.json');
-function readabledate(created){
-  let q = new Date(created).getDate()+
+
+function readabledate(created) {
+let q = new Date(created).getDate() +
       '.' + ((new Date(created).getMonth() < 10 )
                 ?'0' + new Date(created).getMonth() + 1
                 :(new Date(created).getMonth() + 1)) +
@@ -13,28 +15,28 @@ function readabledate(created){
   return q;
 }
 initialState.todos = initialState.todos
-  .sort(function (a, b) {
-    if (new Date(a.created).valueOf() > new Date(b.created).valueOf()) {
-      return -1;
-    }
-    if (new Date(a.created).valueOf() < new Date(b.created).valueOf()) {
-      return 1;
-    }
-    return 0;
-  })
-  .map(item=>{ 
-    return {...item, created : readabledate(item.created)}
-  })
+	.sort(function (a, b) {
+		if (new Date(a.created).valueOf() > new Date(b.created).valueOf()) {
+			return -1;
+		}
+		if (new Date(a.created).valueOf() < new Date(b.created).valueOf()) {
+			return 1;
+		}
+		return 0;
+	})
+	.map(item=>{ 
+		return {...item, created: readabledate(item.created)}
+	});
 
 // Action types
 const actionTypes = {
-  DD_TODO : 'ADD_TODO',
-  TOGGLE_TODO : 'TOGGLE_TODO',
-  EMOVE_TODO : 'REMOVE_TODO',
-  HOW_ALL : 'SHOW_ALL',
-  HOW_COMPLETED : 'SHOW_COMPLETED',
-  HOW_ACTIVE : 'SHOW_ACTIVE',
-  ET_VISIBILITY_FILTER : 'SET_VISIBILITY_FILTER'
+  DD_TODO: 'ADD_TODO',
+  TOGGLE_TODO: 'TOGGLE_TODO',
+  EMOVE_TODO: 'REMOVE_TODO',
+  HOW_ALL: 'SHOW_ALL',
+  HOW_COMPLETED: 'SHOW_COMPLETED',
+  HOW_ACTIVE: 'SHOW_ACTIVE',
+  ET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER'
 };
 
 
@@ -43,13 +45,13 @@ const todos = (state = initialState.todos, action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
-        ...state,
         {
           id: action.id,
           name: action.name,
           done: false,
           created: readabledate(new Date().toISOString())
-        }
+		},
+		...state,
       ]
     case 'TOGGLE_TODO':
       return state.map(todo =>

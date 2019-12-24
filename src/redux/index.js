@@ -18,5 +18,4 @@ import visibilityFilter from './modules/filter';
 export default combineReducers({
   todos,
   visibilityFilter
-})
-
+});
