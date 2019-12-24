@@ -5,11 +5,16 @@ import Todo from './Todo'
 const TodoList = ({ todos, toggleTodo }) => (
   <ul>
     {todos.map(todo =>
+    <div>
       <Todo
         key={todo.id}
         {...todo}
         onClick={() => toggleTodo(todo.id)}
       />
+      <button type="submit">
+      more
+    </button>
+    </div>
     )}
   </ul>
 )
