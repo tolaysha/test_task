@@ -1,25 +1,18 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route ,Link } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
-
-import initStore from './redux/index';
-import Footer from './components/Footer';
-import AddTodo from './containers/AddTodo';
-import VisibleTodoList from './containers/VisibleTodoList';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { createStore } from 'redux';
-import rootReducer from './redux'
-import Todo from './components/Todo';
-const history = createBrowserHistory
-const store = createStore(rootReducer)
+import MainTodo from './pages/mainTodo';
+import SingleTask from './pages/SingleTask';
+import rootReducer from './redux';
+
+const store = createStore(rootReducer);
 
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <AddTodo />
-      <VisibleTodoList />
-      <Footer />
-      <Route path="todos/:id" component={Todo} />
+      <Route path="/main" component={MainTodo} />
+      <Route path="/onetask/:todoid" render = {(...props) => ( <SingleTask {...props}/>)}/>
     </BrowserRouter>
   </Provider>
 );

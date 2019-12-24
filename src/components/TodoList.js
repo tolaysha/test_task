@@ -2,24 +2,28 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import Todo from './Todo';
 
 
 const TodoList = ({ todos, toggleTodo }) => (
   <ul>
-    {todos.map(todo =>
-    	(<div>
-			<Todo
-				key={todo.id}
-				{...todo}
+    {todos.map((todo) =>
+    	(<div key={todo.id}>
+			<Todo {...todo}
 				onClick={() => toggleTodo(todo.id)}
 			/>
-			<NavLink to="/todo/:" {...todo.id}>more..</NavLink>
+			<Link to={{
+				pathname: '/onetask/' + todo.id,
+				state:todo,
+				onclick:toggleTodo
+				  
+	}}>MORE---</Link>
 		</div>))
-	}
+		}
   </ul>
-)
+);
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({

@@ -30,7 +30,7 @@ initialState.todos = initialState.todos
 
 // Action types
 const actionTypes = {
-  DD_TODO: 'ADD_TODO',
+  ADD_TODO: 'ADD_TODO',
   TOGGLE_TODO: 'TOGGLE_TODO',
   EMOVE_TODO: 'REMOVE_TODO',
   HOW_ALL: 'SHOW_ALL',
@@ -43,7 +43,7 @@ const actionTypes = {
 // Reducer
 const todos = (state = initialState.todos, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case actionTypes.ADD_TODO:
       return [
         {
           id: action.id,
@@ -52,35 +52,30 @@ const todos = (state = initialState.todos, action) => {
           created: readabledate(new Date().toISOString())
 		},
 		...state,
-      ]
-    case 'TOGGLE_TODO':
-      return state.map(todo =>
+      ];
+    case actionTypes.TOGGLE_TODO:
+      return state.map((todo) =>
         (todo.id === action.id)
-          ? {...todo, done: !todo.done}
-          : todo
+          ? { ...todo, done: !todo.done }
+          : todo,
       )
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default todos
-
-
-
-
+export default todos;
 // Actions Creators
 
-let nextTodoId = 0
-export const addTodo = name => ({
+let nextTodoId = 0;
+export const addTodo = (name) => ({
   type: 'ADD_TODO',
+  // eslint-disable-next-line no-plusplus
   id: nextTodoId++,
-  name
-})
+  name,
+});
 
-export const toggleTodo = id => ({
+export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',
-  id
-})
-
-
+  id,
+});

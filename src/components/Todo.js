@@ -10,12 +10,12 @@ const Todo = ({ onClick, done, name, created }) => (
   >
     {name},   __Date__: {created}
   </li>
-);
+)
 
 Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
   done: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-};
+  name: PropTypes.string.isRequired
+}
 
-export default Todo;
+export default Todo
