@@ -1,44 +1,10 @@
 // Initial State
-import { combineReducers } from 'redux'
-
-// const initialState =  [
-//   {
-//     "id": 42,
-//     "created": "2019-12-20T11:50:00.000Z",
-//     "name": "Become a Senior Lead Frontend React Architect",
-//     "done": false
-//   },
-//   {
-//     "id": 1555,
-//     "created": "2019-12-19T20:00:00.000Z",
-//     "name": "Do magic",
-//     "done": false
-//   },
-//   {
-//     "id": 137,
-//     "created": "2019-12-11T12:00:00.000Z",
-//     "name": "Create React App",
-//     "done": false
-//   },
-//   {
-//     "id": 20,
-//     "created": "2019-12-15T09:12:00.000Z",
-//     "name": "Learn JS",
-//     "done": true
-//   },
-//   {
-//     "id": 215125,
-//     "created": "2018-12-15T11:48:00.000Z",
-//     "name": "Learn HTML/CSS",
-//     "done": true
-//   }
-// ]
 const initialState = require('../../assets/files/list.json');
 function readabledate(created){
   let q = new Date(created).getDate()+
       '.' + ((new Date(created).getMonth() < 10 )
-                ?'0' + new Date(created).getMonth()
-                :(new Date(created).getMonth())) +
+                ?'0' + new Date(created).getMonth() + 1
+                :(new Date(created).getMonth() + 1)) +
       '.' + new Date(created).getFullYear() +
       ' ' + new Date(created).getHours() +                 //это костыли, сорян, сяда надо moment.js подключать и с ней работать
       ':' + ((new Date(created).getMinutes() < 10 )

@@ -9,6 +9,7 @@ import AddTodo from './containers/AddTodo';
 import VisibleTodoList from './containers/VisibleTodoList';
 import { createStore } from 'redux';
 import rootReducer from './redux'
+import Todo from './components/Todo';
 const history = createBrowserHistory
 const store = createStore(rootReducer)
 
@@ -18,6 +19,7 @@ const App = () => (
       <AddTodo />
       <VisibleTodoList />
       <Footer />
+      <Route path="todos/:id" component={Todo} />
     </BrowserRouter>
   </Provider>
 );

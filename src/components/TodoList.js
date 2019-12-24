@@ -1,6 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Todo from './Todo'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Todo from './Todo';
+import {NavLink} from 'react-router-dom';
 
 const TodoList = ({ todos, toggleTodo }) => (
   <ul>
@@ -11,9 +12,7 @@ const TodoList = ({ todos, toggleTodo }) => (
         {...todo}
         onClick={() => toggleTodo(todo.id)}
       />
-      <button type="submit">
-      more
-    </button>
+      <NavLink to="/todo/:"{todo.id}>more..</NavLink>
     </div>
     )}
   </ul>
