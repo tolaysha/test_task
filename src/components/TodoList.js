@@ -1,38 +1,26 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 import Todo from './Todo'
 
-export default function TodoList(props) {
-    const { todos, toggleTodo, addTodo } = props;
-  
-    const onSubmit = (event) => {
-      const input = event.target;
-      const text = input.value;
-      const isEnterKey = (event.which == 13);
-      const isLongEnough = text.length > 0;
-  
-      if(isEnterKey && isLongEnough) {
-        input.value = '';
-        addTodo(text);
-      }
-    };
-  
-    const toggleClick = id => event => toggleTodo(id);
-  
-    return (
-      <div className='todo'>
-        <input type='text'
-               className='todo__entry'
-               placeholder='Add todo'
-               onKeyDown={onSubmit} />
-        <ul className='todo__list'>
-          {todos.map(t => (
-            <li key={t.get('id')}
-                className='todo__item'
-                onClick={toggleClick(t.get('id'))}>
-              <Todo todo={t.toJS()} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+const TodoList = ({ todos, toggleTodo }) => (
+  <ul>
+    {todos.map(todo =>
+      <Todo
+        key={todo.id}
+        {...todo}
+        onClick={() => toggleTodo(todo.id)}
+      />
+    )}
+  </ul>
+)
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
+  }).isRequired).isRequired,
+  toggleTodo: PropTypes.func.isRequired
+}
+
+export default TodoList

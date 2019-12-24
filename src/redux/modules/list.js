@@ -48,39 +48,45 @@ const actionTypes = {
 
 
 // Reducer
-export default function reducer(todos=initialState, action) {
-  switch(action.type) {
+const todos = (state = [], action) => {
+  switch (action.type) {
     case 'ADD_TODO':
-      return todos.push(Map(action.payload));
-    case 'TOGGLE_TODO':
-      return todos.map(t => {
-        if(t.get('id') === action.payload) {
-          return t.update('isDone', isDone => !isDone);
-        } else {
-          return t;
+      return [
+        ...state,
+        {
+          id: action.id,
+          text: action.text,
+          completed: false
         }
-      });
+      ]
+    case 'TOGGLE_TODO':
+      return state.map(todo =>
+        (todo.id === action.id)
+          ? {...todo, completed: !todo.completed}
+          : todo
+      )
     default:
-      return todos;
+      return state
   }
 }
+
+export default todos
+
 
 
 
 // Actions Creators
 
-const uid = () => Math.random().toString(34).slice(2);
-export const addTodo = (text) ({
-    type: actionTypes.DD_TODO,
-    payload: {
-      id: uid(),
-      isDone: false,
-      text: text
-    } 
+let nextTodoId = 0
+export const addTodo = text => ({
+  type: 'ADD_TODO',
+  id: nextTodoId++,
+  text
 })
 
-export const toggleTodo = (id) ({
-    type: actionTypes.TOGGLE_TODO,
-    payload: id 
+export const toggleTodo = id => ({
+  type: 'TOGGLE_TODO',
+  id
 })
+
 
