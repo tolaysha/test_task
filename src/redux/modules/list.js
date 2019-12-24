@@ -34,6 +34,18 @@ import { combineReducers } from 'redux'
 //   }
 // ]
 const initialState = require('../../assets/files/list.json');
+function readabledate(created){
+  let q = new Date(created).getDate()+
+      '.' + ((new Date(created).getMonth() < 10 )
+                ?'0' + new Date(created).getMonth()
+                :(new Date(created).getMonth())) +
+      '.' + new Date(created).getFullYear() +
+      ' ' + new Date(created).getHours() +                 //это костыли, сорян, сяда надо moment.js подключать и с ней работать
+      ':' + ((new Date(created).getMinutes() < 10 )
+                ?'0' + new Date(created).getMinutes()
+                :(new Date(created).getMinutes()))
+  return q;
+}
 initialState.todos = initialState.todos
   .sort(function (a, b) {
     if (new Date(a.created).valueOf() > new Date(b.created).valueOf()) {
@@ -45,16 +57,7 @@ initialState.todos = initialState.todos
     return 0;
   })
   .map(item=>{ 
-    return {...item, created : new Date(item.created).getDate()+
-      '.' + ((new Date(item.created).getMonth() < 10 )
-                ?'0' + new Date(item.created).getMonth()
-                :(new Date(item.created).getMonth())) +
-      '.' + new Date(item.created).getFullYear() +
-      ' ' + new Date(item.created).getHours() +                 //это костыли, сорян, сяда надо moment.js подключать и с ней работать
-      ':' + ((new Date(item.created).getMinutes() < 10 )
-                ?'0' + new Date(item.created).getMinutes()
-                :(new Date(item.created).getMinutes()))
-    }
+    return {...item, created : readabledate(item.created)}
   })
 
 // Action types
@@ -78,7 +81,8 @@ const todos = (state = initialState.todos, action) => {
         {
           id: action.id,
           name: action.name,
-          done: false
+          done: false,
+          created: readabledate(new Date().toISOString())
         }
       ]
     case 'TOGGLE_TODO':
