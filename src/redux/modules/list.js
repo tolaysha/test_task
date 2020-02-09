@@ -2,31 +2,26 @@
 
 const initialState = require('../../assets/files/list.json');
 
-function readabledate(created) {
-  const q = new Date(created).getDate() +
-    '.' + ((new Date(created).getMonth() < 10)
-      ? '0' + new Date(created).getMonth() + 1
-      : (new Date(created).getMonth() + 1)) +
-    '.' + new Date(created).getFullYear() +
-    ' ' + new Date(created).getHours() +                 //это костыли, сорян, сяда надо moment.js подключать и с ней работать
-    ':' + ((new Date(created).getMinutes() < 10)
-      ? '0' + new Date(created).getMinutes()
-      : (new Date(created).getMinutes()))
-  return q;
-}
+// function readabledate(created) {
+//   const q = new Date(created).getDate() +
+//     '.' + ((new Date(created).getMonth() < 10)
+//       ? '0' + new Date(created).getMonth() + 1
+//       : (new Date(created).getMonth() + 1)) +
+//     '.' + new Date(created).getFullYear() +
+//     ' ' + new Date(created).getHours() +
+//   return q;
+// }
 initialState.todos = initialState.todos
-  .sort(function (a, b) {
-    if (new Date(a.created).valueOf() > new Date(b.created).valueOf()) {
-      return -1;
-    }
-    if (new Date(a.created).valueOf() < new Date(b.created).valueOf()) {
-      return 1;
-    }
-    return 0;
-  })
-  .map(item => {
-    return { ...item, created: readabledate(item.created) }
-  });
+  // .sort(function (a, b) {
+  //   if (new Date(a.created).valueOf() > new Date(b.created).valueOf()) {
+  //     return -1;
+  //   }
+  //   if (new Date(a.created).valueOf() < new Date(b.created).valueOf()) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // })
+  .map((item) => ({ ...item, created: item.created }));
 
 // Action types
 const actionTypes = {
@@ -36,7 +31,7 @@ const actionTypes = {
   HOW_ALL: 'SHOW_ALL',
   HOW_COMPLETED: 'SHOW_COMPLETED',
   HOW_ACTIVE: 'SHOW_ACTIVE',
-  ET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER'
+  ET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER',
 };
 
 
@@ -49,7 +44,7 @@ const todos = (state = initialState.todos, action) => {
           id: action.id,
           name: action.name,
           done: false,
-          created: readabledate(new Date().toISOString())
+          created: action.created,
         },
         ...state,
       ];
@@ -57,8 +52,7 @@ const todos = (state = initialState.todos, action) => {
       return state.map((todo) =>
         (todo.id === action.id)
           ? { ...todo, done: !todo.done }
-          : todo,
-      )
+          : todo);
     default:
       return state;
   }

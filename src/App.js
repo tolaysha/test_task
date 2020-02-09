@@ -12,7 +12,7 @@ const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/main" component={MainTodo} />
-      <Route path="/onetask/:todoid" render = {(...props) => ( <SingleTask {...props}/>)}/>
+      <Route path="/onetask/:todoid" render={(...props) => (<SingleTask {...props} />)} />
     </BrowserRouter>
   </Provider>
 );
