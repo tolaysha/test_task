@@ -10,18 +10,23 @@ import Todo from './Todo';
 const TodoList = ({ todos, toggleTodo }) => (
   <ul>
     {todos.map((todo) =>
-    	(<div key={todo.id}>
-			<Todo {...todo}
-				onClick={() => toggleTodo(todo.id)}
-			/>
-			<Link to={{
-				pathname: '/onetask/' + todo.id,
-				state:todo,
-				onclick:toggleTodo
-				  
-	}}>MORE---</Link>
-		</div>))
-		}
+      (
+        <div key={todo.id}>
+          <Todo
+            {...todo}
+            onClick={() => toggleTodo(todo.id)}
+          />
+          <Link to={{
+            pathname: `/onetask/ + ${todo.id}`,
+            state: todo,
+            onclick: toggleTodo,
+
+          }}
+          >
+            MORE---
+          </Link>
+        </div>
+      ))}
   </ul>
 );
 
